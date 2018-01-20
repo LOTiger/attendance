@@ -1,0 +1,87 @@
+@extends('backend.admin.specialities.layout')
+@section('speciality')
+    @inject('speciality','App\Presenters\SpecialitiesPresenter')
+    <!-- Main row -->
+    <div class="row">
+        <div class="col-xs-12">
+    <!-- Horizontal Form -->
+            <div class="box box-info">
+                <div class="box-header">
+                    <h5 class="box-title">修改专业数据</h5>
+                </div>
+                <!-- form start -->
+
+                <form class="form-horizontal" method="post" action="{{route('edit.speciality')}}">
+                    {{csrf_field()}}
+                    <div class="box-body">
+
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="depar_name" class="col-sm-2 control-label">专业名</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="name" name="name"
+                                       value="{{ old('name')?old('name'):$speciality->getOneSpeciality($id)->spe_name }}" placeholder="请输入专业名...">
+                            </div>
+                            <div class="col-sm-4">
+                                @if ($errors->has('name'))
+                                    <span class="help-block danger">
+                                        <strong style="color:#dc4735;text-align: center">{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                            <label for="description" class="col-sm-2 control-label">描述</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="description" name="description"
+                                       value="{{ old('description')?old('description'):$speciality->getOneSpeciality($id)->desc}}" placeholder="请输入简略描述...">
+                            </div>
+                            <div class="col-sm-4">
+                                @if ($errors->has('description'))
+                                    <span class="help-block danger">
+                                        <strong style="color:#dc4735;text-align: center">{{ $errors->first('description') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('department') ? ' has-error' : '' }}">
+                            <label for="description" class="col-sm-2 control-label">所属院系</label>
+
+                            <div class="col-sm-6">
+                                {!! $speciality->getDepartmentsRadio($id) !!}
+                            </div>
+                            <div class="col-sm-4">
+                                @if ($errors->has('department'))
+                                    <span class="help-block danger">
+                                        <strong style="color:#dc4735;text-align: center">{{ $errors->first('department') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <input type="hidden" id="id" name="id" value="{{$id}}">
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-success pull-right">修改</button>
+                        </div>
+                    </div>
+                    <!-- /.box-footer -->
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $('#school #schoolSpeciality').addClass('active');
+        });
+    </script>
+
+@endsection
