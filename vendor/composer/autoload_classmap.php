@@ -11,6 +11,7 @@ return array(
     'AddStatusInAttendancesTable' => $baseDir . '/database/migrations/2017_12_24_063306_add_status_in_attendances_table.php',
     'AlterAttIdOnSignInsTable' => $baseDir . '/database/migrations/2017_12_24_062135_alter_att_id_on_sign_ins_table.php',
     'AlterClassesClassnameToClassNumTable' => $baseDir . '/database/migrations/2017_12_19_060136_alter_classes_classname_to_class_num_table.php',
+    'AlterClassesTable' => $baseDir . '/database/migrations/2018_01_21_073725_alter_classes_table.php',
     'AlterColStudentsTable' => $baseDir . '/database/migrations/2018_01_21_011504_alter_col_students_table.php',
     'AlterInLessonsTable' => $baseDir . '/database/migrations/2017_12_24_062542_alter_in_lessons_table.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',

@@ -447,6 +447,7 @@ class ComposerStaticInitc749a0d87eec913b0d9127bb0cfc8795
         'AddStatusInAttendancesTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_24_063306_add_status_in_attendances_table.php',
         'AlterAttIdOnSignInsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_24_062135_alter_att_id_on_sign_ins_table.php',
         'AlterClassesClassnameToClassNumTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_19_060136_alter_classes_classname_to_class_num_table.php',
+        'AlterClassesTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_21_073725_alter_classes_table.php',
         'AlterColStudentsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_21_011504_alter_col_students_table.php',
         'AlterInLessonsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_24_062542_alter_in_lessons_table.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
