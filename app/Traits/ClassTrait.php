@@ -55,5 +55,10 @@ trait ClassTrait
         return $name;
     }
 
+    public function students()
+    {
+        return $this->hasMany('App\Models\Student','class_id');
+    }
+
 
 }

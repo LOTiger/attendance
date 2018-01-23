@@ -67,5 +67,4 @@ trait UserTrait
     {
         return $this->hasOne('App\Models\Teacher');
     }
-
 }

@@ -11,4 +11,8 @@ class Speciality extends Model
     protected $fillable = [
         'id','spe_name', 'desc','depar_id'
     ];
+
+    protected $hidden = [
+        'created_at','updated_at'
+    ];
 }

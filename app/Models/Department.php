@@ -11,4 +11,8 @@ class Department extends Model
     protected $fillable = [
         'depar_name', 'desc',
     ];
+
+    protected $hidden = [
+        'created_at','updated_at'
+    ];
 }

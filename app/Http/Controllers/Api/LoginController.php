@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\Http\Controllers\PersonalAccessTokenController;
 
-class StudentLoginController extends PersonalAccessTokenController
+class LoginController extends PersonalAccessTokenController
 {
     use AuthenticatesUsers,ValidatesRequests;
 
@@ -28,15 +28,10 @@ class StudentLoginController extends PersonalAccessTokenController
         $this->incrementLoginAttempts($request);
         return $this->sendFailedLoginResponse($request);
     }
-    /**
-     * Get the failed login response instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     protected function sendFailedLoginResponse(Request $request)
     {
-        return response('Unauthorized.', 401);
+        return response(['status' => 401, 'message' => '认证失败']);
     }
 
     protected function sendLockoutResponse(Request $request)
@@ -103,7 +98,15 @@ class StudentLoginController extends PersonalAccessTokenController
     {
         $personalAccessTokenResult = $user->createToken($this->getTokenName($request, $user), $scopes);
         return [
-            'accessToken' => $personalAccessTokenResult->accessToken
+            'status' => 200,
+            'accessToken' => $personalAccessTokenResult->accessToken,
+            'accessTokenId' => $personalAccessTokenResult->token->id
         ];
     }
+
+    public function getRoles()
+    {
+        return Auth::guard('api')->user()->roles;
+    }
+
 }

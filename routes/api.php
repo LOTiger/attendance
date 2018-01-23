@@ -1,23 +1,26 @@
 <?php
 
-use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+
 
 Route::group(['namespace' => 'Api'], function () {
-    Route::post('studentlogin', 'StudentLoginController@login');
-    Route::post('teacherlogin', 'TeacherLoginController@login');
+    Route::post('login', 'LoginController@login');
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['namespace' => 'Api','middleware' => 'auth:api'], function () {
+
+
+    Route::any('text',function (){
+        return 0;
+    });
+
+    Route::delete('logout/{tokenId}', 'LoginController@logout');
+    Route::get('roles', 'LoginController@getRoles');
+    Route::get('users', 'TeacherController@user');
+    Route::get('teacher/{teacher_id}/lessons', 'TeacherController@lessons');
+    Route::post('teacher/attendances', 'TeacherController@attendances');
+    Route::delete('teacher/attendances/{att_id}', 'TeacherController@deleteAttendance');
+
+    Route::get('clbums/{clbum_id}/students', 'ClassesController@getStudents');
+    Route::post('sign_ins', 'TeacherController@signIn');
 });

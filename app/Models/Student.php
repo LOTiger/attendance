@@ -10,4 +10,8 @@ class Student extends Model
     use StudentTrait;
     protected $fillable = ['id','user_id','class_id'];
 
+    protected $hidden = [
+        'created_at','updated_at'
+    ];
+
 }

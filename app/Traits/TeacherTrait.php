@@ -9,10 +9,7 @@
 namespace App\Traits;
 
 
-use App\Models\Speciality;
-use App\Models\Teacher;
 use App\User;
-use Illuminate\Support\Facades\DB;
 
 trait TeacherTrait
 {
@@ -58,6 +55,11 @@ trait TeacherTrait
                 return $user[0]->teacher->id;
         }
         return null;
+    }
+
+    public function lessons()
+    {
+        return $this->hasMany('App\Models\Lesson','teacher_id');
     }
 
 }

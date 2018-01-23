@@ -9,4 +9,8 @@ class Teacher extends Model
 {
     use TeacherTrait;
     protected $fillable = ['id','user_id','spe_id'];
+
+    protected $hidden = [
+        'created_at','updated_at'
+    ];
 }
