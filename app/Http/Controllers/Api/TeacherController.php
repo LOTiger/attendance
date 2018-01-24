@@ -91,10 +91,9 @@ class TeacherController extends Controller
         $attendance = Attendance::query()->create([
             'att_token' => $this->request->get('att_token'),
             'should' => $this->request->get('should'),
-            'clbum_id' => $this->request->get('clbum_id'),
+            'class_id' => $this->request->get('clbum_id'),
             'creator_id' => $this->request->get('creator_id')
         ]);
-
         return response()->json([
             'status' => 200,
             'data' => $attendance
