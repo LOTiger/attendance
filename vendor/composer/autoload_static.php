@@ -450,6 +450,7 @@ class ComposerStaticInitc749a0d87eec913b0d9127bb0cfc8795
         'AlterClassesClassnameToClassNumTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_19_060136_alter_classes_classname_to_class_num_table.php',
         'AlterClassesTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_21_073725_alter_classes_table.php',
         'AlterColStudentsTable' => __DIR__ . '/../..' . '/database/migrations/2018_01_21_011504_alter_col_students_table.php',
+        'AlterCounselorsAddDeparId' => __DIR__ . '/../..' . '/database/migrations/2018_01_24_113130_alter_counselors_add_depar_id.php',
         'AlterInLessonsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_24_062542_alter_in_lessons_table.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',

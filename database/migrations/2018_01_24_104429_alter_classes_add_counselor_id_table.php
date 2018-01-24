@@ -14,7 +14,7 @@ class AlterClassesAddCounselorIdTable extends Migration
     public function up()
     {
         Schema::table('classes', function (Blueprint $table) {
-            $table->integer('counselor_id')->unsigned()->index();
+            $table->integer('counselor_id')->unsigned()->index()->default(1);
             $table->foreign('counselor_id')->references('id')->on('counselors');
         });
     }
@@ -27,6 +27,7 @@ class AlterClassesAddCounselorIdTable extends Migration
     public function down()
     {
         Schema::table('classes', function (Blueprint $table) {
+            $table->dropForeign('classes_counselor_id_foreign');
             $table->dropColumn('counselor_id');
         });
     }

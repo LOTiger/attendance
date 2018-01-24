@@ -14,6 +14,7 @@ return array(
     'AlterClassesClassnameToClassNumTable' => $baseDir . '/database/migrations/2017_12_19_060136_alter_classes_classname_to_class_num_table.php',
     'AlterClassesTable' => $baseDir . '/database/migrations/2018_01_21_073725_alter_classes_table.php',
     'AlterColStudentsTable' => $baseDir . '/database/migrations/2018_01_21_011504_alter_col_students_table.php',
+    'AlterCounselorsAddDeparId' => $baseDir . '/database/migrations/2018_01_24_113130_alter_counselors_add_depar_id.php',
     'AlterInLessonsTable' => $baseDir . '/database/migrations/2017_12_24_062542_alter_in_lessons_table.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
