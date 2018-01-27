@@ -21,11 +21,8 @@ Route::get('/',function (){
 Auth::routes();
 
 
-
 //后台路由组
-Route::group(/**
- *
- */
+Route::group(
     ['prefix' => 'backend','middleware' => ['auth','role:admin'],'namespace' => 'Backend'], function () {
     //仪盘
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
@@ -98,14 +95,22 @@ Route::group(/**
     Route::get('builds', 'BuildsController@index')->name('builds');
     Route::get('addbuilds', 'BuildsController@showAddForm')->name('show.add.builds.form');
     Route::get('editbuilds', 'BuildsController@showEditForm')->name('show.edit.builds.form');
+
     Route::post('addbuilds', 'BuildsController@add')->name('add.builds');
     Route::post('addroom', 'BuildsController@addRoom')->name('add.room');
     Route::post('deletebuild', 'BuildsController@delete')->name('delete.build');
     Route::post('deleteroom', 'BuildsController@deleteRoom')->name('delete.room');
 
+    //系统配置
+    Route::get('settings', 'SettingsController@index')->name('settings');
+    Route::any('addsettings', 'SettingsController@add')->name('add.settings');
+    Route::post('deletesetting', 'SettingsController@delete')->name('delete.setting');
+    Route::get('editsetting', 'SettingsController@editForm')->name('show.edit.setting.form');
+    Route::post('editsetting', 'SettingsController@edit')->name('edit.setting');
+
+
     //日志组
     Route::get('logs', 'LogController@index')->name('logs');
     Route::get('deletelogs', 'LogController@delete')->name('deletelogs');
-
 
 });
