@@ -17,6 +17,7 @@ Route::get('/',function (){
 });
 
 
+
 //门户登录注册等操作路由组
 Auth::routes();
 
@@ -102,6 +103,22 @@ Route::group(/**
     Route::post('addroom', 'BuildsController@addRoom')->name('add.room');
     Route::post('deletebuild', 'BuildsController@delete')->name('delete.build');
     Route::post('deleteroom', 'BuildsController@deleteRoom')->name('delete.room');
+
+    //辅导员信息管理
+    Route::get('counselors', 'CounselorsController@index')->name('counselors');//辅导员列表，根据不同系划分
+    Route::get('addcounselor', 'CounselorsController@showAddForm')->name('show.add.counselors.form');//添加辅导员页面
+    Route::get('editcounselors', 'CounselorsController@showEditForm')->name('show.edit.counselors.form');//配置所有辅导员信息
+    Route::get('editcounselor', 'CounselorsController@showUpadateForm')->name('show.edit.counselor.form');//更新辅导员信息页面
+    Route::post('editcounselor', 'CounselorsController@editCounselor')->name('edit.counselor');//更新单个辅导员的信息
+    Route::post('addcounselor', 'CounselorsController@addCounselor')->name('add.counselor');//添加辅导员逻辑
+    Route::post('deletecounselor', 'CounselorsController@deleteCounselor')->name('delete.counselor');//删除辅导员
+    Route::get('showclasses', 'CounselorsController@showClasses')->name('show.counselor.class');//辅导员管理班级页面
+    Route::get('showaddclasses', 'CounselorsController@showaddClasses')->name('show.add.classes');//辅导员添加班级页面
+    Route::post('counseloraddclass', 'CounselorsController@counseloraddclass')->name('counselor.add.class');//辅导员添加班级逻辑
+    Route::post('getclassinfo', 'CounselorsController@getclassinfo')->name('get.classinfo');//获取班级所属辅导员
+    Route::get('showcounselorclass', 'CounselorsController@showcounselorclass')->name('show.edit.counselor.class');//展示更新班级所属辅导员页面
+    Route::post('editcounselorclass', 'CounselorsController@editcounselorclass')->name('editcounselor.class');
+
 
     //日志组
     Route::get('logs', 'LogController@index')->name('logs');

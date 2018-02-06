@@ -33,7 +33,7 @@ class DepartmentsPresenter extends Presenter
                 .'</tr>';
         }
 
-        return $data;
+
     }
 
     public function getOneDepartment($id)

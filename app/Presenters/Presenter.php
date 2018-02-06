@@ -103,6 +103,36 @@ class Presenter
         return $data;
     }
 
+
+/*    public function getAllclasses()
+    {
+        return Classes::all();
+    }
+
+
+
+
+    public function getAllclassesOptions()
+    {
+        $data = '';
+        foreach ($this->getAllclasses() as $key => $class)
+        {
+            $data .= '<option>'
+                .$class->speciality->department->depar_name
+                .$class->grade
+                .$class->speciality->spe_name
+                .$class->class_num
+                .'</option>';
+        }
+        return $data;
+    }*/
+
+
+
+
+
+
+
     public function getLessons($path)
     {
         return $this->cutLesson($this->getSeasonLessonArray($path));

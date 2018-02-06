@@ -8,13 +8,17 @@
 
 namespace App\Traits;
 
-
+use App\Models\Counselor;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\User;
 
 trait UserTrait
 {
+    public function counselor()
+    {
+        return $this->hasMany('App\Models\Counselor','user_id');
+    }
 
     public function getMaxLevel()
     {
@@ -55,13 +59,28 @@ trait UserTrait
         ]);
     }
 
-    public function attachTeacher($speId)
+/*    public function attachTeacher($speId)
     {
         return Teacher::query()->create([
             'user_id' => $this->id,
             'spe_id' => $speId
         ]);
+    }*/
+    
+
+    public function attachCounselor($department_id)
+    {
+        $depar_id = (int)$department_id;
+
+        return Counselor::query()->create([
+            'user_id' => $this->id,
+            'depar_id' =>$depar_id
+        ]);
     }
+
+
+
+
 
     public function teacher()
     {

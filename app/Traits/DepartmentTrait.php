@@ -18,6 +18,8 @@ trait DepartmentTrait
         return $this->hasMany('App\Models\Speciality','depar_id');
     }
 
+
+
     public static function getDeparId($depar_name)
     {
         $de = Department::query()->select('id')->where('depar_name',$depar_name);

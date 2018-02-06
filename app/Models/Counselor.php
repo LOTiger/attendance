@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\CounselorTrait;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Counselor extends Model
 {
-    protected $fillable = [
-        'user_id'
-    ];
-
-    protected $hidden = [
-        'created_at','updated_at'
-    ];
+    use CounselorTrait;
+    protected $fillable = ['user_id','depar_id'];
 }

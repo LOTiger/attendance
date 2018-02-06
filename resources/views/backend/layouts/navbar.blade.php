@@ -55,6 +55,7 @@
                 <li id="schoolClass"><a href="{{route('classes')}}"><i class="fa fa-circle-o"></i>班级数据管理</a></li>
                 <li id="schoolStudent"><a href="{{route('students')}}"><i class="fa fa-circle-o"></i>学生数据管理</a></li>
                 <li id="schoolTeacher"><a href="{{route('teachers')}}"><i class="fa fa-circle-o"></i>老师数据管理</a></li>
+                <li id="schoolCounselor"><a href="{{route('counselors')}}"><i class="fa fa-circle-o"></i>辅导员数据管理</a></li>
                 <li id="schoolBuild"><a href="{{route('builds')}}"><i class="fa fa-circle-o"></i>教学楼数据管理</a></li>
                 <li id="schoolLesson"><a href="{{route('show.add.lessons.form')}}"><i class="fa fa-circle-o"></i>课程数据导入</a></li>
             </ul>

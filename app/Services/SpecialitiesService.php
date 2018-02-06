@@ -94,6 +94,7 @@ class SpecialitiesService extends Service
      */
     public function editSpeciality(Request $request)
     {
+
         $this->validate($request, [
             'id' => 'required',
             'name' => 'required|max:255',
