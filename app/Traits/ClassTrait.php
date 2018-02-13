@@ -11,6 +11,7 @@ namespace App\Traits;
 
 use App\Models\Classes;
 use App\Models\Speciality;
+use App\Models\Counselor;
 use Illuminate\Support\Facades\DB;
 
 trait ClassTrait
@@ -24,6 +25,11 @@ trait ClassTrait
     public function lessons()
     {
         return $this->hasMany('App\Models\Lesson','class_id');
+    }
+
+    public function counselor()
+    {
+        return $this->hasMany('App\Models\Counselor','counselor_id');
     }
 
     public function changeLessonStatus()

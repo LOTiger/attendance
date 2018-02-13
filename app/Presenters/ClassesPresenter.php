@@ -37,8 +37,7 @@ class ClassesPresenter extends Presenter
                     <button type="button" class="btn btn-danger" onclick="deleteClass('.$class->id.')">删除</button>
                   </td>'
                 .'</tr>';
-            //<a href="'.route('show.edit.class.form')
-            //            '?id='.$class->id.'"><button type="button" class="btn btn-warning"">修改</button></a>
+
         }
         return $data;
     }

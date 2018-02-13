@@ -101,7 +101,7 @@
             });
         });
 
-        function changeDepartment(id) {
+       function changeDepartment(id) {
             $('#speciality').empty();
             $.ajax( {
                 url: '{{route('get.specialities')}}',// 跳转到 action
