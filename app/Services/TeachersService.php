@@ -8,15 +8,9 @@
 
 namespace App\Services;
 
-use App\Exceptions\IllegaDataInputException;
-use App\Exceptions\IllegaInputException;
-use App\Models\Classes;
-use App\Models\Department;
-use App\Models\Speciality;
 use App\User;
 use Bican\Roles\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Overtrue\Pinyin\Pinyin;
 

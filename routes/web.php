@@ -16,6 +16,8 @@ Route::get('/',function (){
     return view('auth.login');
 });
 
+Route::get('test','Backend\TestController@test')->name('test');
+
 
 //门户登录注册等操作路由组
 Auth::routes();
@@ -25,7 +27,10 @@ Auth::routes();
 Route::group(
     ['prefix' => 'backend','middleware' => ['auth','role:admin'],'namespace' => 'Backend'], function () {
     //仪盘
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('dashboardchartdata', 'DashboardController@getChartData')->name('chart');
+    Route::get('dashboarddatareader', 'DashboardController@dataReader')->name('datareader');
+    Route::get('dashboardexport', 'DashboardController@export')->name('export');
 
     //角色路由组
     Route::get('roles', 'RolesController@index')->name('roles');

@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Overtrue\Pinyin\Pinyin;
+use Exception;
 
 class StudentsService extends Service
 {
@@ -67,19 +68,28 @@ class StudentsService extends Service
         $this->checkCan('add.students');
         $excel_data = Excel::load($path)->ignoreEmpty()->get()->toArray();
 
-        foreach ($excel_data as $student)
+        try
         {
-            if (User::checkUserExit($student['学号']))
-                continue;
-            $user = User::query()->create([
-                'email' => (int)$student['学号'],
-                'name' => $student['姓名'],
-                'password' => bcrypt((int)$student['学号'].$this->pinyin->name($student['姓名'])[0])
-            ]);
-            $user->attachRole(Role::query()->where('slug','student')->get());
-            $user->attachStudent($classId);
+            foreach ($excel_data as $student)
+            {
+                if (User::checkUserExit((int)$student[0]))
+                    continue;
+                $user = User::query()->create([
+                    'email' => (int)$student[0],
+                    'name' => $student[1],
+                    'password' => bcrypt((int)$student[0].$this->pinyin->name($student[1])[0])
+                ]);
+                $user->attachRole(Role::query()->where('slug','student')->get());
+                $user->attachStudent($classId);
+            }
+            return redirect()->route('students')->with('tips' , ['icon'=>6,'msg'=>'数据导入成功']);
         }
-        return redirect()->route('students')->with('tips' , ['icon'=>6,'msg'=>'数据导入成功']);
+        catch (Exception $exception)
+        {
+            dd($exception);
+            return back()->with('tips' , ['icon'=>5,'msg'=>'未知错误']);
+        }
+
 
     }
 
