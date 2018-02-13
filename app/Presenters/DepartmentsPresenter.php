@@ -21,7 +21,6 @@ class DepartmentsPresenter extends Presenter
     {
         $data = '';
         $allDepartments = Department::all();
-
         foreach ($allDepartments as $department)
         {
             $data .=
@@ -32,7 +31,7 @@ class DepartmentsPresenter extends Presenter
                 .' </td>'
                 .'</tr>';
         }
-
+        return $data;
 
     }
 
