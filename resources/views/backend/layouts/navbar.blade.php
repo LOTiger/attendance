@@ -60,6 +60,6 @@
                 <li id="schoolLesson"><a href="{{route('show.add.lessons.form')}}"><i class="fa fa-circle-o"></i>课程数据导入</a></li>
             </ul>
         </li>
-        <li><a href="#"><i class="fa  fa-wrench"></i> <span>系统配置</span></a></li>
+        <li id="settings"><a href="{{route('settings')}}"><i class="fa  fa-wrench"></i> <span>系统配置</span></a></li>
     </ul>
 </section>

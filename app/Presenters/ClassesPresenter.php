@@ -89,10 +89,10 @@ class ClassesPresenter extends Presenter
         foreach ($excel_data as $class)
         {
             $data .= '<tr>'
-                .'<td>'.$class["级别"].'</td>'
-                .'<td>'.$class["专业"].'</td>'
-                .'<td>'.$class["班别"].'</td>'
-                .'<td>'.$class["所属院系"].'</td>'
+                .'<td>'.(int)$class[0].'</td>'
+                .'<td>'.$class[1].'</td>'
+                .'<td>'.(int)$class[2].'</td>'
+                .'<td>'.$class[3].'</td>'
                 .'</tr>';
         }
         return $data;

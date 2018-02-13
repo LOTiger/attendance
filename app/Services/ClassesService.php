@@ -37,23 +37,21 @@ class ClassesService extends Service
         {
             foreach ($excel_data as $key => $class)
             {
-                $excel_data[$key]['专业']=$this->checkSpeNameExit($class['专业']);
+                $excel_data[$key][1]=$this->checkSpeNameExit($class[1]);
             }
         }
         catch (IllegaDataInputException $e)
         {
             return redirect()->back()->with('tips' , ['icon'=>5,'msg'=>'专业名称异常']);
         }
-
-
         foreach ($excel_data as $class)
         {
-            if (Classes::checkClassExit((int)$class['级别'],$class['专业'],(int)$class['班别']))
+            if (Classes::checkClassExit((int)$class[0],$class[1],(int)$class[2]))
                 continue;
             Classes::query()->create([
-                'grade' => (int)$class['级别'],
-                'class_num' => (int)$class['班别'],
-                'spe_id' => $class['专业'],
+                'grade' => (int)$class[0],
+                'class_num' => (int)$class[2],
+                'spe_id' => $class[1],
                 'desc' => '无',
             ]);
         }

@@ -16,20 +16,22 @@ Route::get('/',function (){
     return view('auth.login');
 });
 
+Route::get('test','Backend\TestController@test')->name('test');
+
 
 
 //门户登录注册等操作路由组
 Auth::routes();
 
 
-
 //后台路由组
-Route::group(/**
- *
- */
+Route::group(
     ['prefix' => 'backend','middleware' => ['auth','role:admin'],'namespace' => 'Backend'], function () {
     //仪盘
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('dashboardchartdata', 'DashboardController@getChartData')->name('chart');
+    Route::get('dashboarddatareader', 'DashboardController@dataReader')->name('datareader');
+    Route::get('dashboardexport', 'DashboardController@export')->name('export');
 
     //角色路由组
     Route::get('roles', 'RolesController@index')->name('roles');
@@ -99,10 +101,12 @@ Route::group(/**
     Route::get('builds', 'BuildsController@index')->name('builds');
     Route::get('addbuilds', 'BuildsController@showAddForm')->name('show.add.builds.form');
     Route::get('editbuilds', 'BuildsController@showEditForm')->name('show.edit.builds.form');
+
     Route::post('addbuilds', 'BuildsController@add')->name('add.builds');
     Route::post('addroom', 'BuildsController@addRoom')->name('add.room');
     Route::post('deletebuild', 'BuildsController@delete')->name('delete.build');
     Route::post('deleteroom', 'BuildsController@deleteRoom')->name('delete.room');
+
 
     //辅导员信息管理
     Route::get('counselors', 'CounselorsController@index')->name('counselors');//辅导员列表，根据不同系划分
@@ -119,10 +123,17 @@ Route::group(/**
     Route::get('showcounselorclass', 'CounselorsController@showcounselorclass')->name('show.edit.counselor.class');//展示更新班级所属辅导员页面
     Route::post('editcounselorclass', 'CounselorsController@editcounselorclass')->name('editcounselor.class');
 
+    //系统配置
+    Route::get('settings', 'SettingsController@index')->name('settings');
+    Route::any('addsettings', 'SettingsController@add')->name('add.settings');
+    Route::post('deletesetting', 'SettingsController@delete')->name('delete.setting');
+    Route::get('editsetting', 'SettingsController@editForm')->name('show.edit.setting.form');
+    Route::post('editsetting', 'SettingsController@edit')->name('edit.setting');
+
+
 
     //日志组
     Route::get('logs', 'LogController@index')->name('logs');
     Route::get('deletelogs', 'LogController@delete')->name('deletelogs');
-
 
 });

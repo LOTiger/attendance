@@ -28,8 +28,8 @@ class StudentsPresenter extends Presenter
         foreach ($excel_data as $student)
         {
             $data .= '<tr>'
-                .'<td>'.$student["学号"].'</td>'
-                .'<td>'.$student["姓名"].'</td>'
+                .'<td>'.$student[0].'</td>'
+                .'<td>'.$student[1].'</td>'
                 .'</tr>';
         }
         return $data;

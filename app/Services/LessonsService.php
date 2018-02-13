@@ -8,21 +8,12 @@
 
 namespace App\Services;
 
-use App\Exceptions\IllegaDataInputException;
-use App\Exceptions\IllegaInputException;
 use App\Models\Build;
 use App\Models\Classes;
-use App\Models\Department;
 use App\Models\Lesson;
-use App\Models\Speciality;
 use App\Models\Teacher;
-use App\User;
-use Bican\Roles\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Facades\Excel;
 use Overtrue\Pinyin\Pinyin;
-use PhpParser\Node\Expr\Array_;
 
 class LessonsService extends Service
 {
@@ -81,6 +72,7 @@ class LessonsService extends Service
     public function addLesson($data,$classId)
     {
         //修改该班课程状态
+
         Classes::query()->find($classId)->changeLessonStatus();
 
         $reLesson = Array();
@@ -95,11 +87,11 @@ class LessonsService extends Service
 
                 if ($lesson[1][3])
                 {
-                    $l['section'] = pow(2,$key*2+1)+pow(2,$key*2+2);
+                    $l['section'] = pow(2,$key*2)+pow(2,$key*2+1);
                 }
                 else
                 {
-                    $l['section'] = pow(2,$key*2+1);
+                    $l['section'] = pow(2,$key*2);
                 }
                 $l['name'] = trim($lesson[0]);
                 $l['teacher_id'] = Teacher::getTeacherIdByWorkNum($lesson[3]);
