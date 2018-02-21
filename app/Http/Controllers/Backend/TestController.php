@@ -54,31 +54,12 @@ class TestController extends Controller
     {
         $crypt = new RsaService();
         $crypt->select('rsa_api');
-        $crypt->makeKey();
-        $short = "abcd";
-        $long = "
-   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-
+        $short = "123123xiao";
         $req['prikey'] = $crypt->prikey;
         $req['pubkey'] = $crypt->pubkey;
         $req['short'] = $short;
-        $req['short_private_encrypt'] = $crypt->encryptPrivate($short);
-        $req['short_public_decrypt'] = $crypt->decryptPublic($req['short_private_encrypt']);
-
-        $req['long'] = $long;
-        $req['long_private_encrypt'] = $crypt->encryptPrivate($long);
-        $req['long_public_decrypt'] = $crypt->decryptPublic($req['long_private_encrypt']);
+        $req['short_private_encrypt'] = $crypt->encryptPublic($short);
+        $req['short_public_decrypt'] = $crypt->decryptPrivate('c4BysM47Fg96Nu1us3UBWnmWLHBE7/BagI9BltVBeb40zAUjzxxB/2JHB2JBRVRKgIWJoUJ8SjAZ3/S5x8wADOkQwVOvF8jwXN48j2BZ09bA1jPGzFf+7SEBsw/BEfV9mU4Gdp6KoCT06EAptZR9IHSDZ533PJ1sesdwg+IrfuQ=');
         dump($req);
     }
 

@@ -47,38 +47,21 @@ class RsaService extends Service
     }
 
     public function encryptPrivate($data){
-        $crypt = $this->encrypt_split($data);
-        $crypted = '';
-        foreach ($crypt as $k=>$c){
-            if($k!=0) $crypted.="@";
-            $crypted.=base64_encode($this->doEncryptPrivate($c));
-        }
+        $crypted =base64_encode($this->doEncryptPrivate($data));
         return $crypted;
     }
     public function encryptPublic($data){
-        $crypt = $this->encrypt_split($data);
-        $crypted = '';
-        foreach ($crypt as $k=>$c){
-            if($k!=0) $crypted.="@";
-            $crypted.=base64_encode($this->doEncryptPublic($c));
-        }
+        $crypted=base64_encode($this->doEncryptPublic($data));
         return $crypted;
     }
 
     public function decryptPublic($data){
-        $decrypt = explode('@',$data);
-        $decrypted = "";
-        foreach ($decrypt as $k=>$d){
-            $decrypted .= $this->doDecryptPublic(base64_decode($d));
-        }
+            $decrypted = $this->doDecryptPublic(base64_decode($data));
         return $decrypted;
     }
     public function decryptPrivate($data){
-        $decrypt = explode('@',$data);
-        $decrypted = "";
-        foreach ($decrypt as $k=>$d){
-            $decrypted .= $this->doDecryptPrivate(base64_decode($d));
-        }
+            $decrypted = $this->doDecryptPrivate(base64_decode($data));
+
         return $decrypted;
     }
     private function encrypt_split($data){
