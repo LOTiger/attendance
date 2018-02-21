@@ -80,7 +80,7 @@ class TeacherController extends Controller
                 'creator_id' => 'required|integer'
             ]);
         }
-        catch (ValidationException $exception)
+        catch (Exception $exception)
         {
             return response()->json([
                 'status' => 404,
@@ -132,12 +132,14 @@ class TeacherController extends Controller
         {
             $this->validate($this->request,[
                 'att_id' => 'required|integer',
-                'stu_id' => 'required|Array',
+                'sign_stu_id' => 'required|Array',
                 'clbum_id' => 'required|integer',
-                'stu_id.*' => 'required|integer|distinct'
+                'sign_stu_id.*' => 'required|integer|distinct',
+                'leave_stu_id' => 'required|Array',
+                'leave_stu_id.*' => 'required|integer|distinct'
             ]);
 
-            foreach ($this->request->get('stu_id') as $stu_id)
+            foreach ($this->request->get('sign_stu_id') as $stu_id)
             {
                 SignIn::query()->create([
                     'att_id' => $this->request->get('att_id'),
@@ -146,7 +148,16 @@ class TeacherController extends Controller
                 Student::query()->where('id',$stu_id)->increment('sign_num');
             }
 
+            foreach ($this->request->get('leave_stu_id') as $stu_id)
+            {
+                Student::query()->where('id',$stu_id)->increment('leave_num');
+            }
+
             DB::table('students')->where('class_id',$this->request->get('clbum_id'))->increment('att_num');
+
+            $attendance = Attendance::query()->find($this->request->get('att_id'));
+            $attendance->status = 0;
+            $attendance->save();
 
             return response()->json([
                 'status' => 200
@@ -160,6 +171,41 @@ class TeacherController extends Controller
                 'message' => '数据不符合规范或其他异常'
             ]);
         }
+    }
+
+    public function attendancesByToken()
+    {
+        try{
+            $this->validate($this->request,[
+                'att_tokens' => 'required|string',
+            ]);
+        }
+        catch (ValidationException $exception)
+        {
+            return response()->json([
+                'status' => 404,
+                'message' => '数据不符合规范'
+            ]);
+        }
+        try
+        {
+            $tokens = json_decode($this->request->get('att_tokens'),true);
+            $attendance = Attendance::query()
+                ->whereIn('att_token',$tokens)
+                ->get();
+            return response()->json([
+                'status' => 200,
+                'data' => $attendance
+            ]);
+        }
+        catch (Exception $exception)
+        {
+            return response()->json([
+                'status' => 404,
+                'message' => '未知错误'
+            ]);
+        }
+
     }
 
 }

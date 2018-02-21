@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\Http\Controllers\PersonalAccessTokenController;
-use Exception;
 
 class LoginController extends PersonalAccessTokenController
 {
@@ -104,20 +102,6 @@ class LoginController extends PersonalAccessTokenController
         ];
     }
 
-    public function getRoles()
-    {
-        try
-        {
-            return response()->json([
-                'status' => 200,
-                'data' => Auth::guard('api')->user()->roles]);
-        }
-        catch (Exception $exception)
-        {
-            return response()->json([
-                'status' => 404,
-                'message' => '未知错误']);
-        }
-    }
+
 
 }

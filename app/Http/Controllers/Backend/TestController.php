@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Attendance;
-use App\Models\Department;
 use App\Http\Controllers\Controller;
-use App\Models\Speciality;
+use App\Services\RsaService;
 
 class TestController extends Controller
 {
@@ -48,28 +47,39 @@ class TestController extends Controller
         return Attendance::TotalAttendance();
     }
 
-
+    /**
+     * rsa加密解密调试
+     */
     public function test()
     {
-//        $att = Attendance::getAttOfDepartGroupByGradeInLastWeek();
-//        $data = null;
-//        foreach ($att as $key=>$a)
-//        {
-//            foreach ($a as $k=>$v)
-//            {
-//                $data[$k][$key] = $v;
-//            }
-//        }
-//        foreach ($data as $key=>$value)
-//        {
-//            $value = collect($value)->sortBy(function ($product, $key) {
-//                return -$product;
-//            });
-//            dd($value);
-//        }
-        Attendance::getAttOfClassGroupByGradeInLastMonth();
+        $crypt = new RsaService();
+        $crypt->select('rsa_api');
+        $crypt->makeKey();
+        $short = "abcd";
+        $long = "
+   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+   aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
+        $req['prikey'] = $crypt->prikey;
+        $req['pubkey'] = $crypt->pubkey;
+        $req['short'] = $short;
+        $req['short_private_encrypt'] = $crypt->encryptPrivate($short);
+        $req['short_public_decrypt'] = $crypt->decryptPublic($req['short_private_encrypt']);
 
+        $req['long'] = $long;
+        $req['long_private_encrypt'] = $crypt->encryptPrivate($long);
+        $req['long_public_decrypt'] = $crypt->decryptPublic($req['long_private_encrypt']);
+        dump($req);
     }
 
 }

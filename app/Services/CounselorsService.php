@@ -59,8 +59,6 @@ class CounselorsService extends Service
     }
 
 
-
-
     /**
      * 返回修改视图
      * @param Request $request
@@ -73,10 +71,6 @@ class CounselorsService extends Service
         $id = $request->get('id');
         return view('backend.admin.counselors.edit',compact('id'));
     }
-
-
-
-
 
     /**
      * 帐号为学号，密码为工号加姓的拼音
@@ -114,9 +108,6 @@ class CounselorsService extends Service
 
     }
 
-
-
-
     public function editCounselor(Request $request)
     {
 
@@ -134,11 +125,6 @@ class CounselorsService extends Service
 
 
     }
-
-
-
-
-
 
     public function deleteCounselor(Request $request)
     {
@@ -168,8 +154,6 @@ class CounselorsService extends Service
         return view('backend.admin.counselors.addclasses');
     }
 
-
-
     public function counseloraddclass(Request $request)
     {
         $this->checkCan('counselor.add.class');
@@ -187,7 +171,6 @@ class CounselorsService extends Service
 
     public function getclassinfo(Request $request)
     {
-
         $this->validate($request,['id' => 'required|integer']);
         $counselors= Counselor::select('user_id')->where('depar_id',$request->id)->get();
         $counselor = User::whereIn('id', $counselors)->get();
@@ -214,13 +197,11 @@ class CounselorsService extends Service
 
     public function editcounselorclass(Request $request)
     {
-
-
         $this->checkCan('counselor.edit.class');
-       $this->validate($request,[
-           'counselor' => 'required|integer',
-           'id'=> 'required|integer'
-       ]);
+        $this->validate($request,[
+            'counselor' => 'required|integer',
+            'id'=> 'required|integer'
+        ]);
         $user_id = $request->get('counselor');
         $counselor_id = Counselor::where('user_id', '=', $user_id)->first();
         Classes::where('id',$request->id)-> update(['counselor_id' =>$counselor_id->id]);
