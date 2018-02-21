@@ -16,7 +16,7 @@ Route::get('/',function (){
     return view('auth.login');
 });
 
-Route::get('test','Backend\TestController@test')->name('test');
+Route::any('test','Backend\TestController@test')->name('test');
 
 
 

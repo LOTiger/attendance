@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Attendance;
 use App\Http\Controllers\Controller;
 use App\Services\RsaService;
+use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
@@ -50,17 +51,33 @@ class TestController extends Controller
     /**
      * rsa加密解密调试
      */
-    public function test()
+    public function test(Request $request)
     {
-        $crypt = new RsaService();
-        $crypt->select('rsa_api');
-        $short = "123123xiao";
-        $req['prikey'] = $crypt->prikey;
-        $req['pubkey'] = $crypt->pubkey;
-        $req['short'] = $short;
-        $req['short_private_encrypt'] = $crypt->encryptPublic($short);
-        $req['short_public_decrypt'] = $crypt->decryptPrivate('c4BysM47Fg96Nu1us3UBWnmWLHBE7/BagI9BltVBeb40zAUjzxxB/2JHB2JBRVRKgIWJoUJ8SjAZ3/S5x8wADOkQwVOvF8jwXN48j2BZ09bA1jPGzFf+7SEBsw/BEfV9mU4Gdp6KoCT06EAptZR9IHSDZ533PJ1sesdwg+IrfuQ=');
-        dump($req);
+        if ($request->has('password'))
+        {
+            if ($request->get('deoren'))
+            {
+                $crypt = new RsaService();
+                $crypt->select('rsa_api');
+                $req['prikey'] = $crypt->prikey;
+                $req['pubkey'] = $crypt->pubkey;
+                $req['公钥加密'] = $crypt->encryptPublic($request->get('password'));
+                $req['私钥解密'] = $crypt->decryptPrivate($req['公钥加密']);
+                dump($req);
+            }
+            else
+            {
+                $crypt = new RsaService();
+                $crypt->select('rsa_api');
+                $req['prikey'] = $crypt->prikey;
+                $req['pubkey'] = $crypt->pubkey;
+                $req['公钥加密'] = $request->get('password');
+                $req['私钥解密'] = $crypt->decryptPrivate($req['公钥加密']);
+                dump($req);
+            }
+
+        }
+        return view('backend.text');
     }
 
 }

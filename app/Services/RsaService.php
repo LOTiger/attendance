@@ -12,6 +12,11 @@ class RsaService extends Service
 {
     public $config,$keypath, $prikey_path, $pubkey_path, $prikey, $pubkey , $private_key_size;
 
+    /**
+     * 选择方式并初始化公钥私钥和配置项
+     * @param string $select
+     * @return $this|bool
+     */
     public function select($select = 'rsa_api')
     {
         $config = config('crypt');
@@ -56,12 +61,11 @@ class RsaService extends Service
     }
 
     public function decryptPublic($data){
-            $decrypted = $this->doDecryptPublic(base64_decode($data));
+        $decrypted = $this->doDecryptPublic(base64_decode($data));
         return $decrypted;
     }
     public function decryptPrivate($data){
-            $decrypted = $this->doDecryptPrivate(base64_decode($data));
-
+        $decrypted = $this->doDecryptPrivate(base64_decode($data));
         return $decrypted;
     }
     private function encrypt_split($data){
