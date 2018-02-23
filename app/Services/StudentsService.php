@@ -82,6 +82,7 @@ class StudentsService extends Service
                 $user->attachRole(Role::query()->where('slug','student')->get());
                 $user->attachStudent($classId);
             }
+            $this->updateClassStuNum($classId);
             return redirect()->route('students')->with('tips' , ['icon'=>6,'msg'=>'数据导入成功']);
         }
         catch (Exception $exception)
@@ -90,7 +91,14 @@ class StudentsService extends Service
             return back()->with('tips' , ['icon'=>5,'msg'=>'未知错误']);
         }
 
+    }
 
+    public function updateClassStuNum($class_id)
+    {
+        $class = Classes::query()->find($class_id);
+        $stu_num = collect($class->students)->count();
+        $class->stu_num = $stu_num;
+        $class->save();
     }
 
 }

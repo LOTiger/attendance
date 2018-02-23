@@ -40,4 +40,9 @@ class SettingsController extends Controller
         return $this->service->edit();
     }
 
+    public function test()
+    {
+        dd(\config('settings'));
+    }
+
 }

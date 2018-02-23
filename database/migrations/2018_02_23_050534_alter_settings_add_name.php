@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterUsersAddHeadshot extends Migration
+class AlterSettingsAddName extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AlterUsersAddHeadshot extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->binary('headshot')->nullable()->comment('头像');
+        Schema::table('settings', function (Blueprint $table) {
+            $table->string('name')->comment('配置项中文名称');
         });
     }
 
@@ -25,8 +25,8 @@ class AlterUsersAddHeadshot extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('headshot');
+        Schema::table('settings', function (Blueprint $table) {
+            $table->dropColumn('name');
         });
     }
 }

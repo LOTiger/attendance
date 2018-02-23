@@ -56,10 +56,29 @@ class TeacherController extends Controller
     {
         try
         {
-            return response()->json([
-                'status' => 200,
-                'data' => Teacher::query()->find($teacher_id)->lessons
-            ]);
+            $teacher = Teacher::query()->find($teacher_id);
+            if (!empty($teacher))
+            {
+                $lessons = $teacher->getStatusInLessons();
+                foreach ($lessons as $key=>$lesson)
+                {
+                    $lessons[$key]->room->build = $lesson->room->build;
+                    $lessons[$key]->classes->speciality->department = $lesson->classes->speciality->department;
+                    $lessons[$key]->teacher->user = $lesson->teacher->user;
+                }
+                $lessons = array_flatten((Array)$lessons);
+                return response()->json([
+                    'status' => 200,
+                    'data' => $lessons
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'status'=> 404,
+                    'message' => '老师不存在'
+                ]);
+            }
         }
         catch (Exception $exception)
         {
@@ -132,25 +151,26 @@ class TeacherController extends Controller
         {
             $this->validate($this->request,[
                 'att_id' => 'required|integer',
-                'sign_stu_id' => 'required|Array',
-                'clbum_id' => 'required|integer',
-                'sign_stu_id.*' => 'required|integer|distinct',
-                'leave_stu_id' => 'required|Array',
-                'leave_stu_id.*' => 'required|integer|distinct'
+                'clbum_id' => 'required|integer'
             ]);
-
-            foreach ($this->request->get('sign_stu_id') as $stu_id)
+            if (count($this->request->get('sign_stu_id'))>0)
             {
-                SignIn::query()->create([
-                    'att_id' => $this->request->get('att_id'),
-                    'stu_id' => $stu_id
-                ]);
-                Student::query()->where('id',$stu_id)->increment('sign_num');
+                foreach ($this->request->get('sign_stu_id') as $stu_id)
+                {
+                    SignIn::query()->create([
+                        'att_id' => $this->request->get('att_id'),
+                        'stu_id' => $stu_id
+                    ]);
+                    Student::query()->where('id',$stu_id)->increment('sign_num');
+                }
             }
 
-            foreach ($this->request->get('leave_stu_id') as $stu_id)
+            if (count($this->request->get('leave_stu_id'))>0)
             {
-                Student::query()->where('id',$stu_id)->increment('leave_num');
+                foreach ($this->request->get('leave_stu_id') as $stu_id)
+                {
+                    Student::query()->where('id',$stu_id)->increment('leave_num');
+                }
             }
 
             DB::table('students')->where('class_id',$this->request->get('clbum_id'))->increment('att_num');

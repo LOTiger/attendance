@@ -57,7 +57,7 @@ class DashboardService extends Service
         ]);
         $time=$this->request->get('time');
         $body=$this->request->get('body');
-        dd($this->doExport($time,$body));
+        $this->doExport($time,$body);
 
     }
 
@@ -103,7 +103,7 @@ class DashboardService extends Service
             }
             $b++;
         }
-        Excel::create('系周出勤排名',function($excel) use ($d){
+        Excel::create(config('settings.学年').$this->getSchoolYear().'第'.$this->getLastWeek().'周系出勤排名',function($excel) use ($d){
             foreach ($d as $key=>$value)
             {
                 $value = collect($value)->sortByDesc('att');
@@ -139,12 +139,12 @@ class DashboardService extends Service
             }
         }
 
-        Excel::create('班出勤排名',function($excel) use ($d){
+        Excel::create(config('settings.学年').$this->getSchoolYear().'第'.$this->getLastWeek().'周班出勤排名',function($excel) use ($d){
             foreach ($d as $key=>$value)
             {
                 foreach ($value as $k=>$v)
                 {
-                    $excel->sheet($k.'级上周班出勤排名', function($sheet) use ($v){
+                    $excel->sheet($k.'级第'.$this->getLastWeek().'周班出勤排名', function($sheet) use ($v){
                         $v = collect($v)->sortByDesc('att');
                         $sheet->row(1, array(
                             '名次', '班级','出勤率'
@@ -175,7 +175,7 @@ class DashboardService extends Service
             }
             $b++;
         }
-        Excel::create((date('m')-1).'月系出勤排名',function($excel) use ($d){
+        Excel::create(date('Y').'-'.(date('m')-1).'月系出勤排名',function($excel) use ($d){
             foreach ($d as $key=>$value)
             {
                 $value = collect($value)->sortByDesc('att');
@@ -211,7 +211,7 @@ class DashboardService extends Service
             }
         }
 
-        Excel::create('班出勤排名',function($excel) use ($d){
+        Excel::create(date('Y').'-'.(date('m')-1).'月班出勤排名',function($excel) use ($d){
             foreach ($d as $key=>$value)
             {
                 foreach ($value as $k=>$v)
@@ -231,6 +231,23 @@ class DashboardService extends Service
                 }
             }
         })->export('xlsx');
+    }
+
+    public function getLastWeek()
+    {
+        $today =date('Y-m-d');
+        $startDate = strtotime($today)>strtotime(config('settings.next_semester_start'))?config('settings.next_semester_start'):config('settings.last_semester_start');
+        $startDay = date('w',strtotime($startDate));
+        $limitDay = (strtotime($today) - strtotime($startDate))/(60*60*24);
+        $weekNumber = ceil(($limitDay+$startDay) / 7);
+        return (int)$weekNumber-1;
+    }
+
+    public function getSchoolYear()
+    {
+        $today =date('Y-m-d');
+        return strtotime($today)>strtotime(config('settings.next_semester_start'))
+            ?'下学期':'上学期';
     }
 
 }

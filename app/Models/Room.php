@@ -9,4 +9,7 @@ class Room extends Model
 {
     use RoomTrait;
     protected $fillable = ['room_name','build_id'];
+    protected $hidden = [
+        'created_at','updated_at'
+    ];
 }

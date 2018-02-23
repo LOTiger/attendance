@@ -9,4 +9,7 @@ class Build extends Model
 {
     use BuildTrait;
     protected $fillable = ['build_name'];
+    protected $hidden = [
+        'created_at','updated_at'
+    ];
 }

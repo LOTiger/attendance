@@ -30,7 +30,7 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition sidebar-mini skin-black">
+<body class="sidebar-mini skin-black sidebar-collapse">
     @if(session('tips'))
         <script>
             layer.msg('{{session('tips')['msg']}}', {

@@ -78,12 +78,14 @@ trait UserTrait
         ]);
     }
 
-
-
-
-
     public function teacher()
     {
         return $this->hasOne('App\Models\Teacher');
     }
+
+    public function student()
+    {
+        return $this->hasOne('App\Models\Student');
+    }
+
 }

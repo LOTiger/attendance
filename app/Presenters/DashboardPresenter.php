@@ -215,7 +215,7 @@ class DashboardPresenter
 
         foreach ($d as $key=>$value)
         {
-            $data .= '<h4>'.$key.'级上周系出勤排名</h4>'
+            $data .= '<h4>'.$key.'级第'.$this->getLastWeek().'周系出勤排名</h4>'
                 .'<table class="table table-bordered table-striped table-hover">'
                 .'<thead>'
                 .'<tr>'
@@ -275,7 +275,7 @@ class DashboardPresenter
             $data .= '<h3>'.$key.'</h3>';
             foreach ($value as $k=>$v)
             {
-                $data .= '<h4>'.$k.'级上周班出勤排名</h4>'
+                $data .= '<h4>'.$k.'级第'.$this->getLastWeek().'周班出勤排名</h4>'
                     .'<table class="table table-bordered table-striped table-hover">'
                     .'<thead>'
                     .'<tr>'
@@ -329,7 +329,7 @@ class DashboardPresenter
 
         foreach ($d as $key=>$value)
         {
-            $data .= '<h4>'.$key.'级上个月系出勤排名</h4>'
+            $data .= '<h4>'.$key.'级'.(date('m')-1<=0?(int)date('m')-1+12:(int)date('m')-1).'月份系出勤排名</h4>'
                 .'<table class="table table-bordered table-striped table-hover">'
                 .'<thead>'
                 .'<tr>'
@@ -388,7 +388,7 @@ class DashboardPresenter
             $data .= '<h3>'.$key.'</h3>';
             foreach ($value as $k=>$v)
             {
-                $data .= '<h4>'.$k.'级上月班出勤排名</h4>'
+                $data .= '<h4>'.$k.'级'.(date('m')-1<=0?(int)date('m')-1+12:(int)date('m')-1).'月份班出勤排名</h4>'
                     .'<table class="table table-bordered table-striped table-hover">'
                     .'<thead>'
                     .'<tr>'
@@ -418,6 +418,23 @@ class DashboardPresenter
             }
         }
         return $data;
+    }
+
+    public function getLastWeek()
+    {
+        $today =date('Y-m-d');
+        $startDate = strtotime($today)>strtotime(config('settings.next_semester_start'))?config('settings.next_semester_start'):config('settings.last_semester_start');
+        $startDay = date('w',strtotime($startDate));
+        $limitDay = (strtotime($today) - strtotime($startDate))/(60*60*24);
+        $weekNumber = ceil(($limitDay+$startDay) / 7);
+        return (int)$weekNumber-1;
+    }
+
+    public function getSchoolYear()
+    {
+        $today =date('Y-m-d');
+        return strtotime($today)>strtotime(config('settings.next_semester_start'))
+            ?'下学期':'上学期';
     }
 
 }

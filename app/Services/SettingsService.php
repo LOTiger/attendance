@@ -10,6 +10,7 @@ namespace App\Services;
 
 use App\Models\Setting;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class SettingsService extends Service
 {
@@ -31,9 +32,10 @@ class SettingsService extends Service
             return view('backend.admin.settings.add');
         $this->validate($this->request,[
             'key'=>'required',
-            'value' =>'required'
+            'value' =>'required',
+            'name' =>'required'
         ]);
-        if ($this->set($this->request->get('key'),$this->request->get('value')))
+        if ($this->set($this->request->get('key'),$this->request->get('value'),$this->request->get('name')))
             return redirect()->route('settings')->with('tips' , ['icon'=>6,'msg'=>'新增成功']);
         else
             return redirect()->back()->with('tips' , ['icon'=>5,'msg'=>'新增失败,未知错误']);
@@ -66,9 +68,11 @@ class SettingsService extends Service
     public function edit()
     {
         $this->validate($this->request,[
-            'key'=>'required'
+            'key'=>'required',
+            'value' =>'required',
+            'name' =>'required'
         ]);
-        return $this->set($this->request->get('key'),$this->request->get('value'))
+        return $this->set($this->request->get('key'),$this->request->get('value'),$this->request->get('name'))
             ?redirect()->route('settings')->with('tips' , ['icon'=>6,'msg'=>'修改成功']):
             redirect()->back()->with('tips' , ['icon'=>5,'msg'=>'修改失败,未知错误']);
     }
@@ -93,7 +97,7 @@ class SettingsService extends Service
      * @param $value
      * @return bool
      */
-    protected function set($key,$value)
+    protected function set($key,$value,$name)
     {
         try
         {
@@ -103,14 +107,39 @@ class SettingsService extends Service
             }
             else
             {
-                $this->setting->updateOrCreate(compact('key'), compact('value'));
+                $this->setting->updateOrCreate(compact('key'), compact('value','name'));
             }
+            return true&&$this->exportToConfigFile();
+        }
+        catch (Exception $exception)
+        {
+            return false;
+        }
+    }
+
+    public function exportToConfigFile()
+    {
+        try
+        {
+            $settings = [];
+            $this->getSettings()->map(function ($setting) use (&$settings) {
+                $settings[$setting->key] = $setting->value;
+            });
+            $cache_content = '<?php'. PHP_EOL
+                .'return ' . var_export($settings, true) . ';';
+            Storage::disk('local')->put('settings.php', $cache_content);
             return true;
         }
         catch (Exception $exception)
         {
             return false;
         }
+
+    }
+
+    protected function getSettings()
+    {
+        return Setting::all();
     }
 
 }

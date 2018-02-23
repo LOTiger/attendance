@@ -10,6 +10,7 @@ namespace App\Services;
 
 use App\Exceptions\IllegaInputException;
 use App\Exceptions\PermissionDeniedException;
+use App\User;
 use Bican\Roles\Models\Permission;
 use Bican\Roles\Models\Role;
 use Illuminate\Http\Request;
@@ -36,6 +37,11 @@ class RolesService extends Service
         {
             $this->checkNum($request->get('id'),true,new IllegaInputException());
             $id = $request->get('id');
+        }
+        else
+        {
+            $user = User::query()->find(Auth::id());
+            $id = Role::query()->where('level','<',$user->level())->first()->id;
         }
         return view('backend.admin.roles.index',compact('id'));
 

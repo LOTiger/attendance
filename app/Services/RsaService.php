@@ -40,6 +40,10 @@ class RsaService extends Service
         return $this;
     }
 
+    /**
+     * 创建新密钥
+     * @return array
+     */
     public function makeKey()
     {
         $res = openssl_pkey_new($this->config['openssl_config']);
@@ -51,23 +55,51 @@ class RsaService extends Service
         return $test = ['prikey' => $this->prikey, 'pubkey' => $this->pubkey];
     }
 
+    /**
+     * 私钥加密
+     * @param $data
+     * @return string
+     */
     public function encryptPrivate($data){
         $crypted =base64_encode($this->doEncryptPrivate($data));
         return $crypted;
     }
+
+    /**
+     * 公钥加密
+     * @param $data
+     * @return string
+     */
     public function encryptPublic($data){
         $crypted=base64_encode($this->doEncryptPublic($data));
         return $crypted;
     }
 
+    /**
+     * 公钥解密
+     * @param $data
+     * @return null|string
+     */
     public function decryptPublic($data){
         $decrypted = $this->doDecryptPublic(base64_decode($data));
         return $decrypted;
     }
+
+    /**
+     * 私钥解密
+     * @param $data
+     * @return null|string
+     */
     public function decryptPrivate($data){
         $decrypted = $this->doDecryptPrivate(base64_decode($data));
         return $decrypted;
     }
+
+    /**
+     * 用于密文切割，暂时不用
+     * @param $data
+     * @return array
+     */
     private function encrypt_split($data){
         $crypt=[];$index=0;
         for($i=0; $i<strlen($data); $i+=117){
@@ -77,6 +109,12 @@ class RsaService extends Service
         }
         return $crypt;
     }
+
+    /**
+     * 执行私钥加密
+     * @param $data
+     * @return null|string
+     */
     private function doEncryptPrivate($data)
     {
         $rs = '';
@@ -86,6 +124,11 @@ class RsaService extends Service
         return $rs;
     }
 
+    /**
+     * 执行私钥解密
+     * @param $data
+     * @return null|string
+     */
     private function doDecryptPrivate($data)
     {
         $rs = '';
@@ -94,6 +137,12 @@ class RsaService extends Service
         }
         return $rs;
     }
+
+    /**
+     * 执行公钥加密
+     * @param $data
+     * @return null|string
+     */
     private function doEncryptPublic($data){
         $rs = '';
         if (@openssl_public_encrypt($data, $rs, $this->pubkey) === FALSE) {
@@ -101,6 +150,12 @@ class RsaService extends Service
         }
         return $rs;
     }
+
+    /**
+     * 执行公钥解密
+     * @param $data
+     * @return null|string
+     */
     private function doDecryptPublic($data)
     {
         $rs = '';

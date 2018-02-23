@@ -8,7 +8,7 @@
     <section class="content-header">
         <h1>
             教学楼管理
-            <small>广东财经大学华商学院</small>
+            <small>{{config('settings.school_name')}}</small>
         </h1>
         {{--<ol class="breadcrumb">--}}
             {{--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>--}}

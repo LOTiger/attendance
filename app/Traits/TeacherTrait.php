@@ -62,4 +62,11 @@ trait TeacherTrait
         return $this->hasMany('App\Models\Lesson','teacher_id');
     }
 
+    public function getStatusInLessons()
+    {
+        return $this->lessons->reject(function ($value, $key) {
+            return $value->status == 0;
+        });
+    }
+
 }

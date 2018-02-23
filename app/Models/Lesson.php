@@ -3,11 +3,12 @@
 namespace App\Models;
 
 
+use App\Traits\LessonTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Lesson extends Model
 {
-
+    use LessonTrait;
     protected $fillable = [
         'name', 'section', 'week_begin',
         'week_end', 'weekday', 'room_id', 'class_id',

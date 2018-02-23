@@ -25,12 +25,14 @@ class SettingsPresenter
         foreach ($settings as $setting)
         {
             $data .= '<tr>'
-                .'<td>'.$setting->key.'</td>'
+                .'<td>'.$setting->name.'</td>'
                 .'<td>'.$setting->value.'</td>'
                 .'<td>
+                    <a href="'.route('show.edit.setting.form') .'?id='.$setting->id.'">
+                        <button type="button" class="btn btn-warning"">修改</button>
+                    </a>
                     <button type="button" class="btn btn-danger" onclick="deleteSetting('.$setting->id.')">删除</button>
-                    <a href="'.route('show.edit.setting.form')
-                .'?id='.$setting->id.'"><button type="button" class="btn btn-warning"">修改</button></a>
+                    
                   </td>'
                 .'</tr>';
         }

@@ -6,7 +6,7 @@ return [
         'private_key_file_name'=>'rsa_private_key.pem',
         'public_key_file_name' =>'rsa_public_key.pem',
         'openssl_config'=>[
-            "digest_alg" => "sha1",
+            "digest_alg" => "sha512",
             "private_key_bits" => 1024,
             "private_key_type" => OPENSSL_KEYTYPE_RSA,
         ]
@@ -16,7 +16,7 @@ return [
         'private_key_file_name'=>'rsa_private_key.pem',
         'public_key_file_name' =>'rsa_public_key.pem',
         'openssl_config'=>[
-            "digest_alg" => "sha1",
+            "digest_alg" => "sha512",
             "private_key_bits" => 1024,
             "private_key_type" => OPENSSL_KEYTYPE_RSA,
         ]

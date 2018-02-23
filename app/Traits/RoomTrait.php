@@ -16,7 +16,7 @@ trait RoomTrait
 {
     public function build()
     {
-        return $this->belongTo('App\Models\Build','build_id');
+        return $this->belongsTo('App\Models\Build','build_id');
     }
 
     public static function checkRoom($build_id,$room_name)

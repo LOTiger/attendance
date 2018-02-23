@@ -111,8 +111,6 @@
                                 <span class="glyphicon glyphicon-wrench"></span> 配置资源
                             </button>
                             <button class="btn btn-danger pull-left col-sm-offset-1" type="button" onclick="deleteRole({{$roles->getEditRole($id)->id}})"><span class="glyphicon glyphicon-trash"></span> 删除</button>
-
-
                             <button type="submit" class="btn btn-info pull-right">修改</button>
                         </div>
                     </div>

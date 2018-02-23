@@ -9,15 +9,18 @@
 namespace App\Presenters;
 
 
+use App\User;
 use Bican\Roles\Models\Permission;
 use Bican\Roles\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class RolesPresenter extends Presenter
 {
     public function getRolesList()
     {
         $data = '';
-        $allRoles = Role::all();
+        $user = User::query()->find(Auth::id());
+        $allRoles = Role::query()->where('level','<',$user->level())->get();
 
         foreach ($allRoles as $role)
         {
@@ -35,13 +38,15 @@ class RolesPresenter extends Presenter
 
     public function getEditRole($id)
     {
-        if ($id)
+        $role = Role::query()->find($id);
+        $user = User::query()->find(Auth::id());
+        if ($role->level<$user->level())
         {
             $role = Role::query()->find($id);
         }
         else
         {
-            $role = Role::query()->first();
+            $role = Role::query()->where('level','<',$user->level())->first();
         }
         return $role;
     }

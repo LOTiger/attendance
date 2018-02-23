@@ -175,13 +175,13 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>各项数据名称</th>
+                            <th>第{{config('settings.school_year')}}学年{{$dashboard->getSchoolYear()}}各项数据名称</th>
                             <th>数据操作</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>按年级区分,上周各系出勤排名</td>
+                            <td>第{{$dashboard->getLastWeek()-1}}周各系出勤排名</td>
                             <td>
                                 <a href="{{route('datareader').'?time=week&body=department'}}">
                                     <button class="btn btn-info" type="button" >预览</button>
@@ -192,7 +192,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>按系、年级区分,上周各班出勤排名</td>
+                            <td>第{{$dashboard->getLastWeek()-1}}周各班出勤排名</td>
                             <td>
                                 <a href="{{route('datareader').'?time=week&body=class'}}">
                                     <button class="btn btn-info" type="button" >预览</button>
@@ -203,7 +203,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>按年级区分,上个月系出勤排名</td>
+                            <td>{{date('m')-1<=0?(int)date('m')-1+12:(int)date('m')-1}}月份系出勤排名</td>
                             <td>
                                 <a href="{{route('datareader').'?time=month&body=department'}}">
                                     <button class="btn btn-info" type="button" >预览</button>
@@ -214,7 +214,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>按系、年级区分,上个月各班出勤排名</td>
+                            <td>{{date('m')-1<=0?(int)date('m')-1+12:(int)date('m')-1}}月份各班出勤排名</td>
                             <td>
                                 <a href="{{route('datareader').'?time=month&body=class'}}">
                                     <button class="btn btn-info" type="button" >预览</button>

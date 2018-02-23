@@ -121,7 +121,8 @@ class LoginController extends PersonalAccessTokenController
      */
     public function logout(Request $request, $tokenId)
     {
-        return parent::destroy($request, $tokenId);
+        parent::destroy($request, $tokenId);
+        return response()->json(['status'=>200]);
     }
 
     /**

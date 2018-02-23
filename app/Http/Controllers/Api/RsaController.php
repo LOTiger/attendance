@@ -18,7 +18,6 @@ class RsaController extends Controller
         {
             $crypt = new RsaService();
             $crypt->select('rsa_api');
-            $crypt->makeKey();
             return response()->json([
                 'status' => 200,
                 'data' => [

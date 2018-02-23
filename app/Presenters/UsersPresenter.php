@@ -100,4 +100,10 @@ class UsersPresenter extends Presenter
         return false;
     }
 
+    public function getAllRoles()
+    {
+        $user = User::query()->find(Auth::id());
+        $roles = Role::query()->where('level','<',$user->level())->get();
+        return $roles;
+    }
 }

@@ -15,11 +15,19 @@
                     <div class="box-body">
 
                         <div class="form-group">
-                            <label for="name" class="col-sm-2 control-label">键名</label>
+                            <label for="key" class="col-sm-2 control-label">键名</label>
 
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="key" name="key"
                                        value="{{$setting->key}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">中文名称</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="name" name="name"
+                                       value="{{$setting->name}}">
                             </div>
                         </div>
                         <div class="form-group">

@@ -12,4 +12,7 @@ class Classes extends Model
     protected $fillable = [
         'class_num', 'desc','spe_id','grade'
     ];
+    protected $hidden = [
+        'created_at','updated_at'
+    ];
 }

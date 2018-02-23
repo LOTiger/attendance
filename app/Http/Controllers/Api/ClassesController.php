@@ -9,7 +9,6 @@
 namespace app\Http\Controllers\Api;
 
 use App\Models\Attendance;
-use Dotenv\Exception\ValidationException;
 use Exception;
 use App\Http\Controllers\Controller;
 use App\Models\Classes;
@@ -34,24 +33,38 @@ class ClassesController extends Controller
     {
         try
         {
-            $students = Classes::query()->find($class_id)->students;
-            foreach ($students as $key=>$student)
+            $class = Classes::query()->find($class_id);
+            if (!empty($class))
             {
-                $students[$key]=[
-                    'id' => $student->user->id,
-                    'name' => $student->user->name,
-                    'email' => $student->user->email,
-                    'info' => [
-                        'id' => $student->id,
-                        'sign_num' => $student->sign_num,
-                        'att_num' =>$student->att_num
-                    ]
-                ];
+                $students = $class->students;
+                foreach ($students as $key=>$student)
+                {
+                    $students[$key]=[
+                        'id' => $student->user->id,
+                        'name' => $student->user->name,
+                        'email' => $student->user->email,
+                        'headshot' => $student->user->headshot,
+                        'info' => [
+                            'id' => $student->id,
+                            'sign_num' => $student->sign_num,
+                            'att_num' =>$student->att_num,
+                            'leave_num' =>$student->leave_num,
+                        ]
+                    ];
+                }
+                return response()->json([
+                    'status'=> 200,
+                    'data' => $students
+                ]);
             }
-            return response()->json([
-                'status'=> 200,
-                'data' => $students
-            ]);
+            else
+            {
+                return response()->json([
+                    'status'=> 404,
+                    'message' => '班级不存在'
+                ]);
+            }
+
         }
         catch (Exception $exception)
         {
@@ -89,6 +102,44 @@ class ClassesController extends Controller
                 'status'=> 200,
                 'data' => $attendances
             ]);
+        }
+        catch (Exception $exception)
+        {
+            return response()->json([
+                'status'=> 404,
+                'message' => '数据获取异常'
+            ]);
+        }
+    }
+
+    public function getLessons($class_id)
+    {
+        try
+        {
+            $class = Classes::query()->find($class_id);
+            if (!empty($class))
+            {
+                $lessons = $class->getStatusInLessons();
+                foreach ($lessons as $key=>$lesson)
+                {
+                    $lessons[$key]->room->build = $lesson->room->build;
+                    $lessons[$key]->classes->speciality->department = $lesson->classes->speciality->department;
+                    $lessons[$key]->teacher->user = $lesson->teacher->user;
+                }
+                $lessons = array_flatten((Array)$lessons);
+                return response()->json([
+                    'status'=> 200,
+                    'data' => $lessons
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'status'=> 404,
+                    'message' => '班级不存在'
+                ]);
+            }
+
         }
         catch (Exception $exception)
         {

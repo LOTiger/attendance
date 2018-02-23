@@ -66,5 +66,12 @@ trait ClassTrait
         return $this->hasMany('App\Models\Student','class_id');
     }
 
+    public function getStatusInLessons()
+    {
+        return $this->lessons->reject(function ($value, $key) {
+            return $value->status == 0;
+        });
+    }
+
 
 }

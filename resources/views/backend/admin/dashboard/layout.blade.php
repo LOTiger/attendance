@@ -4,7 +4,8 @@
     <section class="content-header">
             <h1>
                 考勤数据仪盘表
-                <small>广东财经大学华商学院</small>
+                <small>{{config('settings.school_name')}}</small>
+
             </h1>
     </section>
 

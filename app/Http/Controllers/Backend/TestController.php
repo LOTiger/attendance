@@ -53,31 +53,17 @@ class TestController extends Controller
      */
     public function test(Request $request)
     {
-        if ($request->has('password'))
-        {
-            if ($request->get('deoren'))
-            {
-                $crypt = new RsaService();
-                $crypt->select('rsa_api');
-                $req['prikey'] = $crypt->prikey;
-                $req['pubkey'] = $crypt->pubkey;
-                $req['公钥加密'] = $crypt->encryptPublic($request->get('password'));
-                $req['私钥解密'] = $crypt->decryptPrivate($req['公钥加密']);
-                dump($req);
-            }
-            else
-            {
-                $crypt = new RsaService();
-                $crypt->select('rsa_api');
-                $req['prikey'] = $crypt->prikey;
-                $req['pubkey'] = $crypt->pubkey;
-                $req['公钥加密'] = $request->get('password');
-                $req['私钥解密'] = $crypt->decryptPrivate($req['公钥加密']);
-                dump($req);
-            }
 
+        $crypt = new RsaService();
+        $crypt->select('rsa_api');
+//        dd($crypt->decryptPrivate('zu9a8NabBTUcNq6qN+Di3pTdncrMTMykGWw+dj51GWUxjgjRTNgjmO9DwVyjrN9zhj7eHbT7rHMYfEWBktEMyC0ugTf/uH50XAB/fT6kerh/LQC5emDFSgW8q/OVaikDgmuEW4GWkrMGeWILjjojWr9hyxFfEq9GVGAXVxhoL8k='));
+        $req['prikey'] = $crypt->prikey;
+        $req['pubkey'] = $crypt->pubkey;
+        if (!empty($request->all()))
+        {
+            $req['pridekey'] = $crypt->decryptPrivate($request->get('pubkeyencode'));
         }
-        return view('backend.text');
+        return view('backend.text',compact('req'));
     }
 
 }

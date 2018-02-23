@@ -18,7 +18,7 @@
                     <table id="table-students" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>键名</th>
+                            <th>名称</th>
                             <th>键值</th>
                             <th>操作</th>
                         </tr>

@@ -13,6 +13,21 @@
                     {{csrf_field()}}
                     <div class="box-body">
 
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-sm-2 control-label">中文名称</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="请输入中文名称...">
+                            </div>
+                            <div class="col-sm-4">
+                                @if ($errors->has('key'))
+                                    <span class="help-block danger">
+                                        <strong style="color:#dc4735;text-align: center">{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('key') ? ' has-error' : '' }}">
                             <label for="key" class="col-sm-2 control-label">键名</label>
 
