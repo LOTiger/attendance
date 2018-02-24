@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>考勤系统后台登录</title>
+    <link rel="shortcut icon" href="{{asset('favicon.ico')}}">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{{asset('auth/css/style.css')}}">
     <script src="{{asset('backend/plugins/layer/layer.js')}}"></script>

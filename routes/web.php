@@ -13,7 +13,7 @@
 
 //默认打开路由
 Route::get('/',function (){
-    return view('auth.login');
+    return '';
 });
 
 
