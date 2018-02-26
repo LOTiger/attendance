@@ -32,5 +32,10 @@ class LessonsController extends Controller
     {
         return $this->lessonsService->import($this->request);
     }
+
+    public function export()
+    {
+        return response()->download(storage_path('demo').'/lessons.xlsx');
+    }
     
 }

@@ -46,9 +46,9 @@ trait UserTrait
         return true;
     }
 
-    public static function checkUserExit($email)
+    public static function checkUserExit($account)
     {
-        return User::query()->where('email', $email)->get()->count()?true:false;
+        return User::query()->where('account', $account)->get()->count()?true:false;
     }
 
     public function attachStudent($classId)
@@ -59,13 +59,13 @@ trait UserTrait
         ]);
     }
 
-/*    public function attachTeacher($speId)
+    public function attachTeacher($speId)
     {
         return Teacher::query()->create([
             'user_id' => $this->id,
             'spe_id' => $speId
         ]);
-    }*/
+    }
     
 
     public function attachCounselor($department_id)
@@ -86,6 +86,20 @@ trait UserTrait
     public function student()
     {
         return $this->hasOne('App\Models\Student');
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany('App\Models\Attendance', 'creator_id');
+    }
+
+    public static function dropIfExits($account)
+    {
+        $user = User::query()->where('account',$account)->first();
+        if (!empty($user))
+        {
+            $user->delete();
+        }
     }
 
 }

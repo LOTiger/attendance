@@ -63,7 +63,7 @@ class LoginController extends PersonalAccessTokenController
      */
     public function username()
     {
-        return config('passport_login.username', 'email');
+        return config('passport_login.username', 'account');
     }
 
     /**

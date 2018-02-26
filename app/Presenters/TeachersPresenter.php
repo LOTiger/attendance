@@ -29,8 +29,8 @@ class TeachersPresenter extends Presenter
         foreach ($excel_data as $teacher)
         {
             $data .= '<tr>'
-                .'<td>'.$teacher["工号"].'</td>'
-                .'<td>'.$teacher["姓名"].'</td>'
+                .'<td>'.$teacher[0].'</td>'
+                .'<td>'.$teacher[1].'</td>'
                 .'</tr>';
         }
         return $data;

@@ -10,8 +10,8 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h5 class="box-title">班级列表</h5>
-                    <a href="{{route('show.add.classes.form')}}">
-                        <button type="button" class="btn btn-info pull-right">数据导入</button>
+                    <a href="{{route('export.classes.demo')}}">
+                        <button type="button" class="btn btn-success pull-right">导入模板下载</button>
                     </a>
                 </div>
                 <!-- form start -->
@@ -35,6 +35,11 @@
                     </table>
                 </div>
                 <!-- /.box-body -->
+                <div class="box-footer">
+                    <a href="{{route('show.add.classes.form')}}">
+                        <button type="button" class="btn btn-info pull-right">数据导入</button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

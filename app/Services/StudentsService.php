@@ -75,7 +75,7 @@ class StudentsService extends Service
                 if (User::checkUserExit((int)$student[0]))
                     continue;
                 $user = User::query()->create([
-                    'email' => (int)$student[0],
+                    'account' => (int)$student[0],
                     'name' => $student[1],
                     'password' => bcrypt((int)$student[0].$this->pinyin->name($student[1])[0])
                 ]);

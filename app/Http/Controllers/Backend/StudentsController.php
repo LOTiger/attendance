@@ -34,5 +34,11 @@ class StudentsController extends Controller
     {
         return $this->studentsService->import($this->request);
     }
+
+    public function export()
+    {
+        return response()->download(storage_path('demo').'/students.xlsx');
+    }
+
     
 }

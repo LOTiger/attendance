@@ -42,6 +42,7 @@ class ClassesController extends Controller
                     $students[$key]=[
                         'id' => $student->user->id,
                         'name' => $student->user->name,
+                        'account' => $student->user->account,
                         'email' => $student->user->email,
                         'headshot' => $student->user->headshot,
                         'info' => [

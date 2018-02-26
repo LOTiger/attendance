@@ -113,7 +113,7 @@ class RolesService extends Service
         $role->name = $request->get('name');
         $role->slug = $request->get('slug');
         $role->description = $request->get('description');
-        $role->level = $request->get('level');
+        $role->level = $request->get('level')>=Auth::user()->level()?Auth::user()->level()-1:$request->get('level');
         $role->save();
         return redirect()->back()->with('tips' , ['icon'=>6,'msg'=>'修改成功']);
 

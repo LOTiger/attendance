@@ -47,7 +47,6 @@ class LessonsService extends Service
 
 
     /**
-     * 学生帐号为学号，密码为学号加姓的拼音
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */

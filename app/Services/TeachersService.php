@@ -53,18 +53,16 @@ class TeachersService extends Service
 
         foreach ($excel_data as $teacher)
         {
-            if (User::checkUserExit($teacher['工号']))
-                continue;
+            User::dropIfExits($teacher[0]);
             $user = User::query()->create([
-                'email' => (int)$teacher['工号'],
-                'name' => $teacher['姓名'],
-                'password' => bcrypt((int)$teacher['工号'].$this->pinyin->name($teacher['姓名'])[0])
+                'account' => (int)$teacher[0],
+                'name' => $teacher[1],
+                'password' => bcrypt((int)$teacher[0].$this->pinyin->name($teacher[1])[0])
             ]);
             $user->attachRole(Role::query()->where('slug','teacher')->get());
             $user->attachTeacher($speId);
         }
         return redirect()->route('teachers')->with('tips' , ['icon'=>6,'msg'=>'数据导入成功']);
-
     }
 
 }

@@ -29,15 +29,15 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">帐号</label>
+                        <div class="form-group{{ $errors->has('account') ? ' has-error' : '' }}">
+                            <label for="account" class="col-md-4 control-label">帐号</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="account" type="text" class="form-control" name="account" value="{{ old('account') }}" required>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('account'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('account') }}</strong>
                                     </span>
                                 @endif
                             </div>

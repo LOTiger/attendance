@@ -28,7 +28,7 @@
 
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="description" name="description"
-                                       value="{{$users->getOneUser($id)->email}}" readonly>
+                                       value="{{$users->getOneUser($id)->account}}" readonly>
                             </div>
 
                             <input type="hidden" id="id" name="id" value="{{$id}}">

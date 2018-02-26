@@ -16,6 +16,7 @@ Route::group(['namespace' => 'Api','middleware' => 'auth:api'], function () {
     Route::get('roles', 'ShareController@getRoles');
     Route::get('users', 'ShareController@getUsers');
     Route::get('settings', 'ShareController@getSettings');
+    Route::get('users/leaderboard', 'ShareController@leaderBoard');
     Route::patch('users', 'ShareController@patchUsers');
     Route::patch('users/password', 'ShareController@patchPassword');
 

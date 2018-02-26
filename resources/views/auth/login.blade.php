@@ -23,10 +23,10 @@
             <h1>Welcome</h1>
             <form class="form" method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
-                <input id="email" type="email" placeholder="邮箱" name="email" value="{{ old('email') }}" required>
-                @if ($errors->has('email'))
+                <input id="account" type="text" placeholder="邮箱" name="account" value="{{ old('account') }}" required>
+                @if ($errors->has('account'))
                     <span class="help-block danger">
-                        <strong style="color:#ac2925;">{{ $errors->first('email') }}</strong>
+                        <strong style="color:#ac2925;">{{ $errors->first('account') }}</strong>
                     </span>
                 @endif
                 <input id="password" type="password" name="password" placeholder="密码" required>

@@ -39,7 +39,7 @@ trait StudentTrait
 
     public function stuNum()
     {
-        return $this->user->email;
+        return $this->user->account;
     }
 
 }

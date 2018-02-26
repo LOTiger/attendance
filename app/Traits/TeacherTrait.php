@@ -37,18 +37,18 @@ trait TeacherTrait
 
     public function workNum()
     {
-        return $this->user->email;
+        return $this->user->account;
     }
 
     public static function getNameByTeacherWorkNum($num)
     {
-        $teacher = User::query()->where('email',$num)->get();
+        $teacher = User::query()->where('account',$num)->get();
         return $teacher->count()>0?$teacher[0]->name:false;
     }
 
     public static function getTeacherIdByWorkNum($num)
     {
-        $user = User::query()->where('email',$num)->get();
+        $user = User::query()->where('account',$num)->get();
         if ($user->count()>0)
         {
             if ($user[0]->iss('teacher'))
@@ -67,6 +67,16 @@ trait TeacherTrait
         return $this->lessons->reject(function ($value, $key) {
             return $value->status == 0;
         });
+    }
+
+    public function getRate()
+    {
+        $attendances = $this->user->attendances;
+        $rate = $attendances->reduce(function ($carry, $item) {
+            return $carry + ($item->should==0?0:$item->real/$item->should);
+        });
+        $count = $attendances->count();
+        return $count==0?0:$rate/$count;
     }
 
 }

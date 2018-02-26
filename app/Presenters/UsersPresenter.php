@@ -22,7 +22,7 @@ class UsersPresenter extends Presenter
         {
             $data .= '<tr>'
                 .'<td>'.$user->name.'</td>'
-                .'<td>'.$user->email.'</td>'
+                .'<td>'.$user->account.'</td>'
                 .'<td>'.$this->getRoleOfUser($user->id).'</td>'
                 .'<td>'.$user->created_at.'</td>'
                 .'<td>'.$user->updated_at.'</td>'
@@ -57,6 +57,7 @@ class UsersPresenter extends Presenter
 
     public function getRoleLabel($id=null)
     {
+
         $data = null;
         if ($id)
         {
@@ -92,6 +93,7 @@ class UsersPresenter extends Presenter
 
     protected function theUserHasRole($user_id,$role)
     {
+
         foreach ($role->users as $user)
         {
             if ($user->id == $user_id)

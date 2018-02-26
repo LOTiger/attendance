@@ -69,7 +69,7 @@ class CounselorsPresenter extends Presenter
                 $data .= '<tr>'
                     . '<td>' . $counselor_name . '</td>'
                     . '<td>
-                        <button class="btn btn-warning" type="button" onclick="deleteCounselor(' . $counselor->user_id . ')">删除</button>
+                        <button class="btn btn-danger" type="button" onclick="deleteCounselor(' . $counselor->user_id . ')">删除</button>
                         <button class="btn btn-warning" type="button" onclick="updateCounselor(' . $counselor->user_id . ') ">修改</button>
 
                        </td>'
@@ -82,20 +82,14 @@ class CounselorsPresenter extends Presenter
 
     public function getOneCounselor($id)
     {
-
         return User::query()->find($id);
-
     }
 
     public function getCounselorname($id)
     {
-
-
         $user_id = Counselor::where('id', '=', $id)->first();
         $counselor_name = User::where('id', '=', $user_id->user_id)->first();
         return $counselor_name->name;
-
-
     }
 
     public function getClassList($id)
@@ -115,7 +109,6 @@ class CounselorsPresenter extends Presenter
                     . '<td>' . $class->created_at . '</td>'
                     . '<td>' . $class->updated_at . '</td>'
                     . '<td>
-                    <button type="button" class="btn btn-danger" onclick="deleteClass(' . $class->id . ')">删除</button>
                     <button type="button" class="btn  btn-warning" onclick="updateClass(' . $class->id . ')">修改</button>
                       </td>'
                     . '</tr>';

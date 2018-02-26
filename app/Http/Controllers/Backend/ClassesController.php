@@ -47,5 +47,10 @@ class ClassesController extends Controller
         return $this->classesService->delete($this->request);
     }
 
+    public function export()
+    {
+        return response()->download(storage_path('demo').'/classes.xlsx');
+    }
+
 
 }

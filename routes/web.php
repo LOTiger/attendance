@@ -13,11 +13,12 @@
 
 //默认打开路由
 Route::get('/',function (){
+
     return '';
 });
 
 
-Route::any('test','Backend\TestController@test');
+Route::any('test','Backend\TestController@insertAttendance');
 
 
 //门户登录注册等操作路由组
@@ -77,6 +78,7 @@ Route::group(
     //班级管理
     Route::get('classes', 'ClassesController@index')->name('classes');
     Route::get('addclasses', 'ClassesController@showAddForm')->name('show.add.classes.form');
+    Route::get('exportclassesdemo', 'ClassesController@export')->name('export.classes.demo');
     Route::post('addclasses', 'ClassesController@add')->name('add.classes');
     Route::post('importclasses', 'ClassesController@importClasses')->name('import.classes');
     Route::post('deleteclass', 'ClassesController@delete')->name('delete.class');
@@ -86,17 +88,20 @@ Route::group(
     Route::get('addstudents', 'StudentsController@showAddForm')->name('show.add.students.form');
     Route::post('addstudents', 'StudentsController@add')->name('add.students');
     Route::post('importstudents', 'StudentsController@importStudents')->name('import.students');
+    Route::get('exportstudentsdemo', 'StudentsController@export')->name('export.students.demo');
 
     //课程导入管理
     Route::get('addlessons', 'LessonsController@showAddForm')->name('show.add.lessons.form');
     Route::post('addlessons', 'LessonsController@add')->name('add.lessons');
     Route::post('importlessons', 'LessonsController@importStudents')->name('import.lessons');
+    Route::get('exportlessonsdemo', 'LessonsController@export')->name('export.lessons.demo');
 
     //教师管理
     Route::get('teachers', 'TeachersController@index')->name('teachers');
     Route::get('addteachers', 'TeachersController@showAddForm')->name('show.add.teachers.form');
     Route::post('addteachers', 'TeachersController@add')->name('add.teachers');
     Route::post('importteachers', 'TeachersController@importTeachers')->name('import.teachers');
+    Route::get('exportteachersdemo', 'TeachersController@export')->name('export.teachers.demo');
 
     //教学楼管理
     Route::get('builds', 'BuildsController@index')->name('builds');

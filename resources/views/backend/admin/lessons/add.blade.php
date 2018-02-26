@@ -100,6 +100,9 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
+                        <a href="{{route('export.lessons.demo')}}">
+                            <button type="button" class="btn btn-success pull-left">导入模板下载</button>
+                        </a>
                         <div class="col-sm-8">
                             <button type="submit" class="btn btn-info pull-right">导入预览</button>
                         </div>

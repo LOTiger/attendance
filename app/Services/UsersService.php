@@ -10,7 +10,14 @@ namespace App\Services;
 
 
 use App\Exceptions\IllegaInputException;
+use App\Models\Classes;
+use App\Models\Counselor;
+use App\Models\Department;
+use App\Models\Speciality;
+use App\Models\Student;
+use App\Models\Teacher;
 use App\User;
+use Bican\Roles\Models\Role;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 
@@ -21,12 +28,13 @@ class UsersService extends Service
     {
         $this->validate($request,[
             'name'=>'required|string|max:255',
-            'email' => 'required|string|max:255|unique:users',
+            'account' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'roles' => 'required'
         ]);
         $user = $this->create($request->all());
         $this->checkExit($request,'roles')? $user->attachRolesArray($request->get('roles')):null;
+        $this->roleRelation($request->get('roles'),$user->id);
         return redirect('backend/users')->with('tips',['icon' => 6,'msg' => '添加成功']);
     }
 
@@ -100,11 +108,41 @@ class UsersService extends Service
     {
         return User::query()->create([
             'name' => $data['name'],
-            'email' => $data['email'],
+            'account' => $data['account'],
             'password' => bcrypt($data['password']),
         ]);
     }
 
+    protected function roleRelation(Array $roles,$user)
+    {
+        if (!empty($roles))
+        {
+            foreach ($roles as $role)
+            {
+                $r = Role::query()->find($role);
+                switch ($r->slug)
+                {
+                    case 'teacher':
+                        Teacher::query()->create([
+                            'user_id' => $user,
+                            'spe_id' => Speciality::query()->first()->id
+                        ]);
+                        break;
+                    case 'student':
+                        Student::query()->create([
+                            'user_id' => $user,
+                            'class_id' => Classes::query()->first()->id
+                        ]);
+                        break;
+                    case 'counselor':
+                        Counselor::query()->create([
+                            'user_id' => $user,
+                            'depar_id' => Department::query()->first()->id
+                        ]);
+                }
+            }
+        }
+    }
 
 
 
